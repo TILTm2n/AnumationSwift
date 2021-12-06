@@ -24,15 +24,7 @@ class ViewController: UIViewController {
         
         viewForAnimation.center = view.center
         
-        animator = UIViewPropertyAnimator(duration: 1.5, curve: .easeInOut, animations: {
-            
-            self.viewForAnimation.backgroundColor = .red
-            
-            self.viewForAnimation.layer.cornerRadius = 15
-            
-            self.viewForAnimation.transform = .init(rotationAngle: .pi/2).scaledBy(x: 1.5, y: 1.5)
-            //self.viewForAnimation.transform = .init(scaleX: 1.5, y: 1.5)
-        })
+        animator = UIViewPropertyAnimator(duration: 1.5, curve: .easeInOut)
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTap))
         
@@ -46,7 +38,16 @@ class ViewController: UIViewController {
 
     @objc
     func didTap(){
+        animator.addAnimations {
+            self.viewForAnimation.backgroundColor = .red
+            
+            self.viewForAnimation.layer.cornerRadius = 15
         
+            self.viewForAnimation.transform = .init(scaleX: 1.5, y: 1.5)
+        }
+        
+        animator.startAnimation()
+        print("sosi")
     }
     
 
