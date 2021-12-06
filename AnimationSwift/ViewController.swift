@@ -30,6 +30,12 @@ class ViewController: UIViewController {
         
         viewForAnimation.addGestureRecognizer(tapGesture)
         
+        let tapGesture2 = UITapGestureRecognizer(target: self, action: #selector(didDoubleTap))
+        
+        tapGesture2.numberOfTouchesRequired = 2 //чтобы нажать двумя пальцами надо зажать option [+shift]
+        
+        viewForAnimation.addGestureRecognizer(tapGesture2)
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -48,13 +54,26 @@ class ViewController: UIViewController {
         
         // position - это enum, который иеет 3 состояния: end = 0 (завершилась), start = 1 (началась), current = 2 (продолжается)
         animator.addCompletion { (position) in
-            <#code#>
+            print("завершено")
         }
         
         animator.startAnimation()
         print("sosi")
+
     }
     
+    @objc
+    func didDoubleTap(){
+        animator.addAnimations {
+            self.viewForAnimation.transform = .identity
+            self.viewForAnimation.backgroundColor = .green
+            self.viewForAnimation.layer.cornerRadius = 0
+        }
+        
+        animator.startAnimation()
+        
+
+    }
 
 }
 
