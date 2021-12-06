@@ -21,9 +21,21 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemGreenColor"/>
                             </view>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="a6R-LF-9xq">
+                                <rect key="frame" x="8" y="159" width="398" height="31"/>
+                                <connections>
+                                    <action selector="didSlide:" destination="BYZ-38-t0r" eventType="valueChanged" id="8An-w0-8eb"/>
+                                </connections>
+                            </slider>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="a6R-LF-9xq" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="7Wl-mD-Mxo"/>
+                            <constraint firstAttribute="trailing" secondItem="a6R-LF-9xq" secondAttribute="trailing" constant="10" id="E23-w8-04R"/>
+                            <constraint firstItem="a6R-LF-9xq" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="115" id="NzX-l2-CG1"/>
+                            <constraint firstItem="a6R-LF-9xq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="QDe-sJ-pSq"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="viewForAnimation" destination="15V-p4-7dc" id="4HZ-rg-KPf"/>
