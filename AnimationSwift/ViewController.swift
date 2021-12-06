@@ -22,13 +22,7 @@ class ViewController: UIViewController {
 //            self.viewForAnimation.alpha = 0.0
 //        }
         
-        //self.viewForAnimation.frame.origin.x = 0
-        
-        self.viewCenterYConstraint.constant = 100
-        
-        UIView.animate(withDuration: 3) {
-            self.view.layoutIfNeeded()
-        }
+        self.viewForAnimation.frame.origin.x = 0
         
 //        UIView.animateKeyframes(withDuration: 1.0, delay: 0.2, options: [.repeat, .autoreverse], animations: {
 //            self.viewForAnimation.frame.origin.x = self.view.bounds.maxX - self.viewForAnimation.bounds.width
@@ -43,6 +37,18 @@ class ViewController: UIViewController {
 //            }
 //
 //        }, completion: nil)
+        
+        UIView.animate(withDuration: 2.5,
+                       delay: 0.1,
+                       usingSpringWithDamping: 1.0,
+                       initialSpringVelocity: 2.0,
+                       options: [.curveLinear, .curveEaseInOut],
+                       animations: {
+            self.viewForAnimation.frame.origin.x =
+            self.view.bounds.maxX - self.viewForAnimation.bounds.width
+        },
+                       completion: nil)
+        
     }
 
 

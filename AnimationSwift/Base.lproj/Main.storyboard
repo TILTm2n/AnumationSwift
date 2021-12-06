@@ -16,24 +16,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="15V-p4-7dc">
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="15V-p4-7dc">
                                 <rect key="frame" x="87" y="384" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemGreenColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="240" id="hf1-aw-4nI"/>
-                                    <constraint firstAttribute="height" constant="128" id="qym-bW-N8M"/>
-                                </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="15V-p4-7dc" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="cxu-T7-Mns"/>
-                            <constraint firstItem="15V-p4-7dc" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="gkH-Ce-A3k"/>
-                        </constraints>
                     </view>
                     <connections>
-                        <outlet property="viewCenterYConstraint" destination="cxu-T7-Mns" id="dmt-lD-yV3"/>
                         <outlet property="viewForAnimation" destination="15V-p4-7dc" id="4HZ-rg-KPf"/>
                     </connections>
                 </viewController>
