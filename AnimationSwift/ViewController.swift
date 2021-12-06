@@ -22,8 +22,10 @@ class ViewController: UIViewController {
         UIView.animate(withDuration: 1.0, animations: {
             self.viewForAnimation.center = self.view.center
             
+            self.viewForAnimation.transform = CGAffineTransform(rotationAngle: .pi)
+            
         }) { (isFinish) in
-            self.viewForAnimation.alpha = 0.0
+            //self.viewForAnimation.alpha = 0.0 // срабатывает когда завершится анимация
         }
     }
 
