@@ -21,14 +21,18 @@ class ViewController: UIViewController {
         
         self.viewForAnimation.frame.origin.x = 0
         
-        UIView.animateKeyframes(withDuration: 3.0, delay: 0.2, options: .repeat) {
-            self.viewForAnimation.center = self.view.center
-            self.viewForAnimation.transform = CGAffineTransform(rotationAngle: (3 * .pi)/2)
-        } completion: { <#Bool#> in
-            <#code#>
-        }
-
-        
+        UIView.animateKeyframes(withDuration: 1.0, delay: 0.2, options: [.repeat, .autoreverse], animations: {
+            self.viewForAnimation.frame.origin.x = self.view.bounds.maxX - self.viewForAnimation.bounds.width
+            
+            UIView.addKeyframe(withRelativeStartTime: 0.2, relativeDuration: 0.3) {
+                self.viewForAnimation.backgroundColor = .red
+            }
+            
+            UIView.addKeyframe(withRelativeStartTime: 0.1, relativeDuration: 0.5) {
+                self.viewForAnimation.alpha = 0.5
+            }
+            
+        }, completion: nil)
     }
 
 
