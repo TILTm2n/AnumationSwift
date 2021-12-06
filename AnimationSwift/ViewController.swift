@@ -46,6 +46,11 @@ class ViewController: UIViewController {
             self.viewForAnimation.transform = .init(scaleX: 1.5, y: 1.5)
         }
         
+        // position - это enum, который иеет 3 состояния: end = 0 (завершилась), start = 1 (началась), current = 2 (продолжается)
+        animator.addCompletion { (position) in
+            <#code#>
+        }
+        
         animator.startAnimation()
         print("sosi")
     }
