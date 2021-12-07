@@ -7,9 +7,16 @@
 
 import UIKit
 
+enum AnimationState{
+    case open
+    case close
+}
+
 class ViewController: UIViewController {
     
     var animator: UIViewPropertyAnimator!
+    
+    var state: AnimationState = .close
     
     @IBOutlet weak var viewForAnimation: UIView!
     
@@ -24,17 +31,23 @@ class ViewController: UIViewController {
         
         viewForAnimation.center = view.center
         
-        animator = UIViewPropertyAnimator(duration: 1.5, curve: .easeInOut)
+        animator = UIViewPropertyAnimator(duration: 1.5, curve: .easeInOut, animations: {
+            self.viewForAnimation.backgroundColor = .red
+            
+            self.viewForAnimation.layer.cornerRadius = 15
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTap))
+            self.viewForAnimation.transform = .init(scaleX: 1.5, y: 1.5)
+        })
         
-        viewForAnimation.addGestureRecognizer(tapGesture)
-        
-        let tapGesture2 = UITapGestureRecognizer(target: self, action: #selector(didDoubleTap))
-        
-        tapGesture2.numberOfTouchesRequired = 2 //чтобы нажать двумя пальцами надо зажать option [+shift]
-        
-        viewForAnimation.addGestureRecognizer(tapGesture2)
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTap))
+//
+//        viewForAnimation.addGestureRecognizer(tapGesture)
+//
+//        let tapGesture2 = UITapGestureRecognizer(target: self, action: #selector(didDoubleTap))
+//
+//        tapGesture2.numberOfTouchesRequired = 2 //чтобы нажать двумя пальцами надо зажать option [+shift]
+//
+//        viewForAnimation.addGestureRecognizer(tapGesture2)
         
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(didPan(_:)))
      
@@ -45,21 +58,40 @@ class ViewController: UIViewController {
         
     }
 
-    @objc
-    func didPan(_ panGesture: UIPanGestureRecognizer){
-        //panGesture.view - через panGesture можно обращаться к view к которой gesture в данный момент привязяно
-        
-        let newPosition = panGesture.translation(in: self.view)
-        
-        let currentX = viewForAnimation.center.x
-        let currentY = viewForAnimation.center.y
-        
-        viewForAnimation.center = CGPoint(x: currentX + newPosition.x, y: currentY + newPosition.y)
-        
-        panGesture.setTranslation(.zero, in: self.view)
+    func activateAnimation(){
+        switch state{
+        case .open: didTap()
+        case .close: didDoubleTap()
+        }
     }
     
     @objc
+    func didPan(_ panGesture: UIPanGestureRecognizer){
+        //panGesture.view - через panGesture можно обращаться к view к которой gesture в данный момент привязяно
+        let final = (view.bounds.height - viewForAnimation.bounds.height)/2
+        let translation = panGesture.translation(in: self.view)
+        
+        switch panGesture.state{
+            
+        case .began:
+            activateAnimation()
+            animator.pauseAnimation()
+        case .changed:
+            animator.fractionComplete = -translation.y/final
+        case .ended:
+            animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
+        default: break
+        
+//        let currentX = viewForAnimation.center.x
+//        let currentY = viewForAnimation.center.y
+        
+        //viewForAnimation.center = CGPoint(x: currentX + newPosition.x, y: currentY + newPosition.y
+        
+        //panGesture.setTranslation(.zero, in: self.view)
+        }
+    }
+    
+    //@objc
     func didTap(){
         animator.addAnimations {
             self.viewForAnimation.backgroundColor = .red
@@ -71,7 +103,7 @@ class ViewController: UIViewController {
         
         // position - это enum, который иеет 3 состояния: end = 0 (завершилась), start = 1 (началась), current = 2 (продолжается)
         animator.addCompletion { (position) in
-            print("завершено")
+            self.state = .close
         }
         
         animator.startAnimation()
@@ -79,12 +111,16 @@ class ViewController: UIViewController {
 
     }
     
-    @objc
+    //@objc
     func didDoubleTap(){
         animator.addAnimations {
             self.viewForAnimation.transform = .identity
             self.viewForAnimation.backgroundColor = .green
             self.viewForAnimation.layer.cornerRadius = 0
+        }
+        
+        animator.addCompletion { (position) in
+            self.state = .open
         }
         
         animator.startAnimation()
@@ -93,4 +129,5 @@ class ViewController: UIViewController {
     }
 
 }
+
 
