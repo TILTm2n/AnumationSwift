@@ -70,6 +70,7 @@ class ViewController: UIViewController {
         //panGesture.view - через panGesture можно обращаться к view к которой gesture в данный момент привязяно
         let final = (view.bounds.height - viewForAnimation.bounds.height)/2
         let translation = panGesture.translation(in: self.view)
+        var currentYTranslation = -translation.y
         
         switch panGesture.state{
             
@@ -77,7 +78,12 @@ class ViewController: UIViewController {
             activateAnimation()
             animator.pauseAnimation()
         case .changed:
-            animator.fractionComplete = -translation.y/final
+            
+            if state == .open {
+                currentYTranslation *= -1
+            }
+            
+            animator.fractionComplete = currentYTranslation/final
         case .ended:
             animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
         default: break
