@@ -36,12 +36,29 @@ class ViewController: UIViewController {
         
         viewForAnimation.addGestureRecognizer(tapGesture2)
         
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(didPan(_:)))
+     
+        viewForAnimation.addGestureRecognizer(panGesture)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         
     }
 
+    @objc
+    func didPan(_ panGesture: UIPanGestureRecognizer){
+        //panGesture.view - через panGesture можно обращаться к view к которой gesture в данный момент привязяно
+        
+        let newPosition = panGesture.translation(in: self.view)
+        
+        let currentX = viewForAnimation.center.x
+        let currentY = viewForAnimation.center.y
+        
+        viewForAnimation.center = CGPoint(x: currentX + newPosition.x, y: currentY + newPosition.y)
+        
+        panGesture.setTranslation(.zero, in: self.view)
+    }
+    
     @objc
     func didTap(){
         animator.addAnimations {
